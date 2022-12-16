@@ -2,30 +2,44 @@ package az.yelo.licensingservice.service;
 
 import az.yelo.licensingservice.config.ServiceConfig;
 import az.yelo.licensingservice.model.License;
+import az.yelo.licensingservice.model.Organization;
 import az.yelo.licensingservice.model.request.CreateLicenseRequest;
 import az.yelo.licensingservice.model.request.UpdateLicenseRequest;
 import az.yelo.licensingservice.model.response.CreateLicenseResponse;
 import az.yelo.licensingservice.repository.LicenseRepository;
-import java.util.Locale;
+import az.yelo.licensingservice.service.client.OrganizationFeignClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class
-LicenseService {
+public class LicenseService {
 
   MessageSource messageSource;
 
   @Autowired
-  ServiceConfig serviceConfig;
+  private ServiceConfig serviceConfig;
   private final LicenseRepository licenseRepository;
+  private final OrganizationFeignClient client;
 
   @Autowired
-  public LicenseService(MessageSource messageSource, LicenseRepository licenseRepository) {
+  public LicenseService(MessageSource messageSource, LicenseRepository licenseRepository,
+                        OrganizationFeignClient client) {
     this.messageSource = messageSource;
     this.licenseRepository = licenseRepository;
+    this.client = client;
+  }
+
+  public Organization getOrganizationByLicenseId(String licenseId) {
+    License license = this.licenseRepository.findByLicenseId(licenseId);
+    if (license == null) {
+      return null;
+    }
+
+    Organization org = client.getOrganization(license.getOrganizationId());
+    org.setId(license.getOrganizationId());
+    return org;
   }
 
   public License getLicense(String licenseId, String organizationId) {
@@ -67,4 +81,22 @@ LicenseService {
     this.licenseRepository.delete(license);
     return ResponseEntity.ok(license);
   }
+
+//  public GetLicenseResponse getLicense(String organizationId, String licenseId, String clientType) {
+//    License license =
+//        this.licenseRepository.findByOrganizationIdAndLicenseId(organizationId, licenseId);
+//    if (license == null) {
+//      return null;
+//    }
+//
+//    az.yelo.licensingservice.model.Organization organization =
+//        retrieveOrganizationInfo(organizationId, clientType);
+//    if (organization != null) {
+//      license.setOrganizationId(organization.getName());
+////      license.setContactName(organization.getContactName());
+//    }
+//
+//    return new GetLicenseResponse(license.getDescription(), license.getOrganizationId(),
+//        license.getProductName(), license.getLicenseType(), license.getComment());
+//  }
 }

@@ -1,6 +1,7 @@
 package az.yelo.licensingservice.controller;
 
 import az.yelo.licensingservice.model.License;
+import az.yelo.licensingservice.model.Organization;
 import az.yelo.licensingservice.model.request.CreateLicenseRequest;
 import az.yelo.licensingservice.model.request.UpdateLicenseRequest;
 import az.yelo.licensingservice.model.response.CreateLicenseResponse;
@@ -46,6 +47,13 @@ public class LicenseController {
     return ResponseEntity.ok(new GetLicenseResponse(license.getDescription(), license.getOrganizationId(), license.getProductName(), license.getLicenseType(), license.getComment()));
   }
 
+//  @GetMapping("/{licenseId}/{clientType}")
+//  public GetLicenseResponse getLicenseWithClient(@PathVariable("organizationId") String organizationId,
+//                                                 @PathVariable("licenseId") String licenseId,
+//                                                 @PathVariable("clientType") String clientType) {
+//    return this.licenseService.getLicense(organizationId, licenseId, clientType);
+//  }
+
   // DONE
   @PutMapping
   public ResponseEntity<License> updateLicense(@RequestBody UpdateLicenseRequest license) {
@@ -65,4 +73,5 @@ public class LicenseController {
   public ResponseEntity<License> deleteLicense(@PathVariable("licenseId") String licenseId) {
     return this.licenseService.deleteLicense(licenseId);
   }
+
 }
