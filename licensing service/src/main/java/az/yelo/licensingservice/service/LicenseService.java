@@ -16,12 +16,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class LicenseService {
 
-  MessageSource messageSource;
-
-  @Autowired
-  private ServiceConfig serviceConfig;
   private final LicenseRepository licenseRepository;
   private final OrganizationFeignClient client;
+  MessageSource messageSource;
+  @Autowired
+  private ServiceConfig serviceConfig;
 
   @Autowired
   public LicenseService(MessageSource messageSource, LicenseRepository licenseRepository,

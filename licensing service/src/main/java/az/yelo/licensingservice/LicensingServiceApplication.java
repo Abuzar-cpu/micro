@@ -18,6 +18,12 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 // This annotation provides /refresh for the app to reread the properties from config server
 // Note a couple of things about the @RefreshScope annotation. This annotation only reloads the custom Spring properties you have in your application configuration.
 //Items like your database configuration used by Spring Data won’t be reloaded by this annotation.
+
+
+// Resilience4j's retry order
+// Retry -> CircutBreaker -> RateLimiter -> TimeLimiter -> Bulkhead -> Function
+
+
 @EnableDiscoveryClient // Activate Eureka client
 @EnableFeignClients
 public class LicensingServiceApplication {

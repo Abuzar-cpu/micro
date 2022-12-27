@@ -1,7 +1,6 @@
 package az.yelo.licensingservice.controller;
 
 import az.yelo.licensingservice.model.License;
-import az.yelo.licensingservice.model.Organization;
 import az.yelo.licensingservice.model.request.CreateLicenseRequest;
 import az.yelo.licensingservice.model.request.UpdateLicenseRequest;
 import az.yelo.licensingservice.model.response.CreateLicenseResponse;
@@ -33,18 +32,21 @@ public class LicenseController {
 
   // DONE
   @GetMapping(value = "{licenseId}")
-  public ResponseEntity<GetLicenseResponse> getLicense(@PathVariable("organizationId") String organizationId,
-                                                       @PathVariable("licenseId") String licenseId) {
+  public ResponseEntity<GetLicenseResponse> getLicense(
+      @PathVariable("organizationId") String organizationId,
+      @PathVariable("licenseId") String licenseId) {
     License license = this.licenseService.getLicense(licenseId, organizationId);
 
-    if(license == null) {
+    if (license == null) {
       return ResponseEntity.notFound().build();
     }
 
     license.add(
         Link.of("/v1/organization/" + organizationId + "/license/" + licenseId).withSelfRel());
 
-    return ResponseEntity.ok(new GetLicenseResponse(license.getDescription(), license.getOrganizationId(), license.getProductName(), license.getLicenseType(), license.getComment()));
+    return ResponseEntity.ok(
+        new GetLicenseResponse(license.getDescription(), license.getOrganizationId(),
+            license.getProductName(), license.getLicenseType(), license.getComment()));
   }
 
 //  @GetMapping("/{licenseId}/{clientType}")
@@ -62,9 +64,11 @@ public class LicenseController {
 
   // DONE
   @PostMapping
-  public ResponseEntity<CreateLicenseResponse> createLicense(@RequestBody CreateLicenseRequest license) {
-    if (license == null)
+  public ResponseEntity<CreateLicenseResponse> createLicense(
+      @RequestBody CreateLicenseRequest license) {
+    if (license == null) {
       return ResponseEntity.badRequest().build();
+    }
 
     return this.licenseService.createLicense(license);
   }

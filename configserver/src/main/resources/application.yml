@@ -9,15 +9,15 @@ spring:
 #        native:
 #          search-locations: classpath:/config
   profiles:
-    active: native
+    active: git
   cloud:
     config:
       server:
         git:
           uri: https://github.com/Abuzar-cpu/micro_config
           search-paths: eureka-server, licensing-service, organization-service
-        native:
-          search-locations: file:\\\D:\micro_in_action\micro_config
+#        native:
+#          search-locations: file:\\\D:\micro_in_action\micro_config
 
 server:
   port: 8071

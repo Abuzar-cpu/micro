@@ -1,1 +1,7 @@
-FROM
+version: '3.7'
+services:
+  configserver:
+    image: ostock/configserver:1.0
+    environment:
+      - "SPRING_PROFILES_ACTIVE=git"
+    network_mode: host

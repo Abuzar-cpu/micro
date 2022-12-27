@@ -1,31 +1,31 @@
 #stage 1
-#Start with a base image containing Java runtime
+# Starting with base image that contains java runtime
 FROM openjdk:latest as build
 
-# Add Maintainer Info
+# Adding maintainer info
 LABEL maintainer="Abuzar Karimzada <kerimovabuzer25@gmail.com>"
 
 # The application's jar file
 ARG JAR_FILE=target/*.jar
 
-# Add the application's jar to the container
+# Adding the jar file to container
 COPY ${JAR_FILE} app.jar
 
-#unpackage jar file
+# Unpackaging jar file
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf /app.jar)
 
-#stage 2
-#Same Java runtime
+# Stage 2
+# Taking the same java runtime
 FROM openjdk:latest
 
-#Add volume pointing to /tmp
+# Add volume pointing to /tmp
 VOLUME /tmp
 
-#Copy unpackaged application to new container
+# Copy unpackaged application to new container
 ARG DEPENDENCY=/target/dependency
 COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
 
-#execute the application
-ENTRYPOINT ["java","-cp","app:app/lib/*","az.yelo.configserver.ConfigurationServerApplication"]
+# Executing the application
+ENTRYPOINT ["java", "-cp", "app:app/lib/*", "az.yelo.eurekaserver.EurekaserverApplication"]

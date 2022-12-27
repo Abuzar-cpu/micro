@@ -1,20 +1,16 @@
 package az.yelo.licensingservice.model;
 
 import java.util.UUID;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.hateoas.RepresentationModel;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Getter
 @Setter
@@ -22,17 +18,17 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="licenses")
+@Table(name = "licenses")
 public class License extends RepresentationModel<License> {
 
-//  private Integer id;
+  //  private Integer id;
   @Id
-  @Column(name="license_id", nullable = false)
+  @Column(name = "license_id", nullable = false)
   private String licenseId = UUID.randomUUID().toString();
 
   private String description;
 
-  @Column(name="organization_id", nullable=false)
+  @Column(name = "organization_id", nullable = false)
   private String organizationId;
 
   @Column(name = "product_name", nullable = false)
@@ -45,8 +41,8 @@ public class License extends RepresentationModel<License> {
   private String comment;
 
   public License withComment(String comment) {
-      this.comment = comment;
-      return this;
+    this.comment = comment;
+    return this;
   }
 
   @Override

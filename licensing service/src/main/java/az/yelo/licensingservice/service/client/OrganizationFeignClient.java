@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 @FeignClient(
-    name="organization-service",
+    name = "organization-service",
     fallbackFactory = OrganizationLicenseFallbackFactory.class
 )
 public interface OrganizationFeignClient {
@@ -30,11 +30,10 @@ class OrganizationLicenseFallbackFactory implements FallbackFactory<Organization
 
   @Override
   public OrganizationFeignClient create(Throwable cause) {
-    String httpStatus = cause instanceof FeignException ? Integer.toString(((FeignException) cause).status()) : "";
+    String httpStatus =
+        cause instanceof FeignException ? Integer.toString(((FeignException) cause).status()) : "";
 
     log.error("Could not connect: " + httpStatus);
-    return organizationId -> {
-      return null;
-    };
+    return null;
   }
 }

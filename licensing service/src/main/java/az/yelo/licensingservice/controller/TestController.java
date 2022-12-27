@@ -21,6 +21,14 @@ public class TestController {
 
   @GetMapping()
   public Organization getOrganizationByLicenseId(@PathVariable("licenseId") String licenseId) {
-    return this.licenseService.getOrganizationByLicenseId(licenseId);
+    try {
+      Thread.sleep(10000);
+
+      return this.licenseService.getOrganizationByLicenseId(licenseId);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    return null;
   }
 }

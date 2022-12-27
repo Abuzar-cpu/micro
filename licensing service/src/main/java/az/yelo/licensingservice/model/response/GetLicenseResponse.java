@@ -1,6 +1,5 @@
 package az.yelo.licensingservice.model.response;
 
-import az.yelo.licensingservice.model.License;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

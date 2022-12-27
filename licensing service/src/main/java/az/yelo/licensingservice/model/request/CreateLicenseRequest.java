@@ -20,6 +20,7 @@ public class CreateLicenseRequest {
   private String comment;
 
   public CreateLicenseResponse mapToResponse() {
-    return new CreateLicenseResponse(this.description, this.organizationId, this.productName, licenseType, this.comment);
+    return new CreateLicenseResponse(this.description, this.organizationId, this.productName,
+        licenseType, this.comment);
   }
 }
