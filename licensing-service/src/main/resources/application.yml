@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: licensing-service # In other words application ID for eureka server
+  profiles:
+    active: dev
+  config:
+    import: optional:configserver:http://localhost:8071
+
+
+resilience4j:
+  bulkhead:
+    instances:
+      bulkheadLicenseService:
+        max-wait-duration: 10ms
+        max-concurrent-calls: 20
+
+  thread-pool-bulkhead:
+    instances:
+      bulkheadLicenseService:
+        max-thread-pool-size: 1
+        core-thread-pool-size: 1
+        queue-capacity: 1
+        keep-alive-duration: 20ms
+
+  circuitbreaker:
+    instances:
+      licenseService:
+        register-health-indicator: true
+        event-consumer-buffer-size: 5
+        permitted-number-of-calls-in-half-open-state: 3
+        wait-duration-in-open-state: 10s
+        failure-rate-threshold: 50
+  retry:
+    instances:
+      retryLicenseService:
+        max-attempts: 5
+        wait-duration: 10000
+        retry-exceptions:
+          - java.util.concurrent.TimeoutException
+  ratelimiter:
+    instances:
+      licenseService:
+        timeout-duration: 1000ms
+        limit-refresh-period: 5000
+        limit-for-period: 5
+management:
+  endpoint:
+    circuitbreakers:
+      enabled: true
+    health:
+      show-details: always
+
+logging:
+  level:
+    org.springframework.web: WARN
+    az.yelo: DEBUG

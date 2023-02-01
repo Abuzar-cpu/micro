@@ -4,6 +4,7 @@ import az.yelo.organizationservice.model.Organization;
 import az.yelo.organizationservice.model.request.AddOrganizationRequest;
 import az.yelo.organizationservice.model.response.GetOrganizationResponse;
 import az.yelo.organizationservice.repository.OrganizationRepo;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ public class OrganizationService {
     this.organizationRepo = organizationRepo;
   }
 
+  @CircuitBreaker(name="organizationService")
   public ResponseEntity<GetOrganizationResponse> getOrganizationById(String organizationId) {
     var organization = this.organizationRepo.findById(organizationId);
     if (organization.isPresent()) {

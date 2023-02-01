@@ -5,3 +5,10 @@ spring:
     import: optional:configserver:http://localhost:8071
   application:
     name: organization-service
+endpoints:
+  health:
+    sensitive: false
+management:
+  endpoint:
+    health:
+      showDetails: always
