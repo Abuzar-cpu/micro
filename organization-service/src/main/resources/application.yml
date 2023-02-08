@@ -12,3 +12,8 @@ management:
   endpoint:
     health:
       showDetails: always
+
+logging:
+  level:
+    org.springframework.web: WARN
+    az.yelo: DEBUG

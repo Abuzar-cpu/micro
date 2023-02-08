@@ -4,6 +4,7 @@ import az.yelo.organizationservice.model.Organization;
 import az.yelo.organizationservice.model.request.AddOrganizationRequest;
 import az.yelo.organizationservice.model.response.GetOrganizationResponse;
 import az.yelo.organizationservice.service.OrganizationService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,6 +26,10 @@ public class OrganizationController {
     this.organizationService = organizationService;
   }
 
+  @GetMapping()
+  public List<Organization> getAll() {
+    return this.organizationService.getAllOrganizations();
+  }
   @GetMapping("/{organizationId}")
   public ResponseEntity<GetOrganizationResponse> getById(
       @PathVariable("organizationId") String organizationId) {

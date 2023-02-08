@@ -1,15 +1,10 @@
-package az.yelo.licensingservice.utils;
+package az.yelo.organizationservice.utils;
 
-import javax.persistence.SecondaryTable;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 @Component
-//@Data
-@Getter
-@Setter
+@Data
 public class UserContext {
   public static final String CORRELATION_ID = "tmx-correlation-id";
   public static final String AUTH_TOKEN = "tmx-auth-token";

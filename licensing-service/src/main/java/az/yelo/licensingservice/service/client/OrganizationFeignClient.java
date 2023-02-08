@@ -33,7 +33,7 @@ class OrganizationLicenseFallbackFactory implements FallbackFactory<Organization
     String httpStatus =
         cause instanceof FeignException ? Integer.toString(((FeignException) cause).status()) : "";
 
-    log.error("Could not connect: " + httpStatus);
+    log.error("Could not connect to organization service: " + httpStatus);
     return null;
   }
 }

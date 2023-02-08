@@ -37,15 +37,17 @@ public class LicenseController {
 
   // DONE
   @GetMapping
-  public ResponseEntity<List<License>> getLicenseByOrganizationId(@PathVariable("organizationId") String organizationId) throws
+  public ResponseEntity<List<License>> getLicenseByOrganizationId(
+      @PathVariable("organizationId") String organizationId) throws
       TimeoutException {
     List<License> licenses = this.licenseService.getLicenseByOrganization(organizationId);
 
-    if(licenses.isEmpty()) {
+    if (licenses.isEmpty()) {
       return ResponseEntity.notFound().build();
     }
 
-    log.debug("LicenseServiceController Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
+    log.debug("LicenseServiceController Correlation id: {}",
+        UserContextHolder.getContext().getCorrelationId());
 
     return ResponseEntity.ok(licenses);
   }
@@ -68,6 +70,7 @@ public class LicenseController {
         new GetLicenseResponse(license.getDescription(), license.getOrganizationId(),
             license.getProductName(), license.getLicenseType(), license.getComment()));
   }
+
   // DONE
   @PutMapping
   public ResponseEntity<License> updateLicense(@RequestBody UpdateLicenseRequest license) {

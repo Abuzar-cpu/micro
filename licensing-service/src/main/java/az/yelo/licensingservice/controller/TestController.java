@@ -22,7 +22,7 @@ public class TestController {
   @GetMapping()
   public Organization getOrganizationByLicenseId(@PathVariable("licenseId") String licenseId) {
     try {
-      Thread.sleep(10000);
+//      Thread.sleep(10000);
 
       return this.licenseService.getOrganizationByLicenseId(licenseId);
     } catch (Exception e) {

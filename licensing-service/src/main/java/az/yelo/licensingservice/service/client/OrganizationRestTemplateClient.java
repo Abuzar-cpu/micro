@@ -2,6 +2,8 @@ package az.yelo.licensingservice.service.client;
 
 import az.yelo.licensingservice.model.Organization;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -12,14 +14,19 @@ public class OrganizationRestTemplateClient {
   private final RestTemplate restTemplate;
 
   @Autowired
-  public OrganizationRestTemplateClient(RestTemplate restTemplate){
+  public OrganizationRestTemplateClient(RestTemplate restTemplate) {
     this.restTemplate = restTemplate;
   }
+
   public Organization getOrganization(String organizationId) {
+    HttpHeaders headers = new HttpHeaders();
+    headers.set("Host", "localhost:8072");
+
+    HttpEntity<String> entity = new HttpEntity<>(headers);
     ResponseEntity<Organization> restExchange = restTemplate.exchange(
-        "http://organization-service/v1/organization/{organizationId}",
+        "http://localhost:8072/organization-service/v1/organization/{organizationId}", // Sending request through gateway server for better security, logging and more
         HttpMethod.GET,
-        null,
+        entity,
         Organization.class,
         organizationId
     );

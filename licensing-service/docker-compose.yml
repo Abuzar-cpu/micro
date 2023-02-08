@@ -2,9 +2,9 @@ version: '3.7'
 services:
   licensingservice:
     image: ostock/licensing-service:1.0
-#    ports:
-#      - "8080:8080"
-#       - "8071:8071"
+    #    ports:
+    #      - "8080:8080"
+    #       - "8071:8071"
     environment:
       - "SPRING_PROFILES_ACTIVE=dev"
     networks:

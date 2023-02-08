@@ -1,6 +1,6 @@
 spring:
   application:
-    name: licensing-service # In other words application ID for eureka server
+    name: licensing-service # In other words application ID for eureka server and config server
   profiles:
     active: dev
   config:
