@@ -19,14 +19,14 @@ public class OrganizationRestTemplateClient {
   }
 
   public Organization getOrganization(String organizationId) {
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("Host", "localhost:8072");
+//    HttpHeaders headers = new HttpHeaders();
+//    headers.set("Host", "localhost:8072");
 
-    HttpEntity<String> entity = new HttpEntity<>(headers);
+//    HttpEntity<String> entity = new HttpEntity<>(headers);
     ResponseEntity<Organization> restExchange = restTemplate.exchange(
-        "http://localhost:8072/organization-service/v1/organization/{organizationId}", // Sending request through gateway server for better security, logging and more
+        "/v1/organization/{organizationId}", // Sending request through gateway server for better security, logging and more
         HttpMethod.GET,
-        entity,
+        null,
         Organization.class,
         organizationId
     );

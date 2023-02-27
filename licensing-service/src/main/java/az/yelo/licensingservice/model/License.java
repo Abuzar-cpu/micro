@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +21,7 @@ import org.springframework.hateoas.RepresentationModel;
 @NoArgsConstructor
 @Entity
 @Table(name = "licenses")
+@Builder
 public class License extends RepresentationModel<License> {
 
   @Id
@@ -41,43 +43,4 @@ public class License extends RepresentationModel<License> {
   @Column(name = "comment")
   private String comment;
 
-  public License withComment(String comment) {
-    this.comment = comment;
-    return this;
-  }
-
-  public License withId(String id) {
-    this.licenseId = id;
-    return this;
-  }
-
-  public License withOrganizationId(String organizationId) {
-    this.organizationId = organizationId;
-    return this;
-  }
-
-  public License withDescription(String description) {
-    this.description = description;
-    return this;
-  }
-
-  public License withProductName(String productName) {
-    this.productName = productName;
-    return this;
-  }
-
-  public License withLicenseType(String licenseType) {
-    this.licenseType = licenseType;
-    return this;
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    return super.equals(obj);
-  }
-
-  @Override
-  public int hashCode() {
-    return super.hashCode();
-  }
 }

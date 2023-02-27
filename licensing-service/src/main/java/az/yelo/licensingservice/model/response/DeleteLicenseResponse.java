@@ -1,6 +1,5 @@
-package az.yelo.licensingservice.model.request;
+package az.yelo.licensingservice.model.response;
 
-import az.yelo.licensingservice.model.response.CreateLicenseResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +11,8 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateLicenseRequest {
+public class DeleteLicenseResponse {
+  private String licenseId;
   private String description;
   private String organizationId;
   private String productName;

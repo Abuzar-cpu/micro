@@ -12,6 +12,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateLicenseResponse {
+  private String licenseId;
   private String description;
   private String organizationId;
   private String productName;
